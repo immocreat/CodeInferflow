@@ -41,7 +41,7 @@ Extending features:
 ## Getting Started
 ### Starting inferflow_service via Pre-build Binaries
 
-Please make sure your CUDA version >= 12.2. If you want to use the CPU version, please build the project mannually.
+Please make sure your CUDA version >= 12.4. If you want to use the CPU version, please build the project mannually.
 
 #### Step1: Download pre-build binaries
 
