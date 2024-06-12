@@ -44,7 +44,7 @@ jobs:
           path: CodeInferflow-linux-x64.tar.gz
   
   build_windows:
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
       - name: "Prepare CUDA"
         uses: Jimver/cuda-toolkit@v0.2.15
