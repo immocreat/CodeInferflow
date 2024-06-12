@@ -1,0 +1,125 @@
+name: build-release
+on: 
+  push
+
+permissions:
+  contents: write
+
+jobs:
+  build_linux:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Prepare CUDA
+        uses: Jimver/cuda-toolkit@v0.2.15
+        id: cuda-toolkit
+        with:
+          cuda: '12.4.1'
+          method: network
+    
+      - name: Verify CUDA
+        run: |  
+          echo "Installed cuda version is: ${{steps.cuda-toolkit.outputs.cuda}}"
+          echo "Cuda install location: ${{steps.cuda-toolkit.outputs.CUDA_PATH}}"
+          nvcc -V
+
+      - name: chekout
+        uses: actions/checkout@v4
+
+      # - name: clone git submodules
+      #   run: git submodule update --init --recursive
+
+      - name: cmake configure
+        run: cmake -B build -DUSE_CUDA=1 -DCMAKE_BUILD_TYPE=Release
+      
+      - name: build
+        run: cmake --build build --target install -j 8
+
+      - name: tar target
+        run: tar -czf CodeInferflow-linux-x64.tar.gz bin/ data/ README.md docs/
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CodeInferflow-linux-x64.tar.gz
+          path: CodeInferflow-linux-x64.tar.gz
+  
+  build_windows:
+    runs-on: windows-2019
+    steps:
+      - name: "Prepare CUDA"
+        uses: Jimver/cuda-toolkit@v0.2.15
+        id: cuda-toolkit
+        with:
+          cuda: '12.4.1'
+          method: network
+
+      - name: Verify CUDA
+        run: |  
+          echo "Installed cuda version is: ${{steps.cuda-toolkit.outputs.cuda}}"
+          echo "Cuda install location: ${{steps.cuda-toolkit.outputs.CUDA_PATH}}"
+          nvcc -V
+
+      - name: chekout
+        uses: actions/checkout@v4
+
+      # - name: clone git submodules
+      #   run: git submodule update --init --recursive
+
+      - name: cmake configure
+        run: cmake -B build -DUSE_CUDA=1 -DCMAKE_BUILD_TYPE=Release
+      
+      - name: build
+        run: cmake --build build --target install --config release
+
+      - name: zip target
+        run: 7z a CodeInferflow-win-x64.zip bin/ data/ README.md docs/
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CodeInferflow-win-x64.zip
+          path: CodeInferflow-win-x64.zip
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: 
+      - build_linux
+      - build_windows
+    runs-on: ubuntu-latest
+    steps:
+      - name: chekout
+        uses: actions/checkout@v4
+
+      - name: Extract tag name
+        id: get_tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        # run: echo "::set-output name=TAG_NAME::"
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release
+          merge-multiple: true
+        
+      - name: list dir
+        run: ls release -l
+      
+      - name: add tags to release files name
+        run: |
+          for file in release/*.tar.gz; do
+            mv $file release/`basename -s .tar.gz $file`-${{ steps.get_tag.outputs.TAG_NAME }}.tar.gz
+          done
+          for file in release/*.zip; do
+            mv $file release/`basename -s .zip $file`-${{ steps.get_tag.outputs.TAG_NAME }}.zip
+          done
+      
+      - name: list release
+        run: ls release -l
+
+      - name: create github release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: release/*
+          bodyFile: docs/release-notes/v${{ steps.get_tag.outputs.TAG_NAME }}.md
+
+    

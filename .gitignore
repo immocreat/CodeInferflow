@@ -1,0 +1,4 @@
+build
+build2
+data/inferflow/*
+bin/release

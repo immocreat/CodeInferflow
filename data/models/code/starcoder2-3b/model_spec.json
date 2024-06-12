@@ -1,0 +1,49 @@
+{
+    "config_file": "config.json",
+    "model_files":
+    [
+        "model.safetensors"
+    ],
+    "model_file_format": "safetensors",
+    "generation_config": "generation_config.json",
+
+    "tokenizer_files": ["tokenizer.json","tokenizer_config.json"],
+    "tokenization_algorithm": "bpe",
+    "token_bytes_mapping": 1,
+
+    "network_structure":
+    {
+        "type": "transformer.decoder_only",
+        "normalization_function": "std",
+        "activation_function": "gelu_tanh",
+        "position_embedding": "rope",
+
+        "use_self_attn_pre_norm": true,
+
+        "qk_column_order": 2,
+
+        "tensor_name_prefix": "model.",
+        "tensor_name_mapping":
+        {
+            "embed_tokens.weight": "dec.token_embeddings.weight",
+            "layers.{i}.input_layernorm.weight": "dec.{i}.self_attn.pre_norm.weight",
+            "layers.{i}.input_layernorm.bias": "dec.{i}.self_attn.pre_norm.bias",
+            "layers.{i}.mlp.c_fc.weight": "dec.{i}.feed_forward.w1.weight",
+            "layers.{i}.mlp.c_fc.bias": "dec.{i}.feed_forward.w1.bias",
+            "layers.{i}.mlp.c_proj.weight": "dec.{i}.feed_forward.w2.weight",
+            "layers.{i}.mlp.c_proj.bias": "dec.{i}.feed_forward.w2.bias",
+            "layers.{i}.post_attention_layernorm.weight": "dec.{i}.feed_forward.pre_norm.weight",
+            "layers.{i}.post_attention_layernorm.bias": "dec.{i}.feed_forward.pre_norm.bias",
+            "layers.{i}.self_attn.q_proj.weight": "dec.{i}.self_attn.wq.weight",
+            "layers.{i}.self_attn.k_proj.weight": "dec.{i}.self_attn.wk.weight",
+            "layers.{i}.self_attn.v_proj.weight": "dec.{i}.self_attn.wv.weight",
+            "layers.{i}.self_attn.o_proj.weight": "dec.{i}.self_attn.wo.weight",
+            "layers.{i}.self_attn.q_proj.bias": "dec.{i}.self_attn.wq.bias",
+            "layers.{i}.self_attn.k_proj.bias": "dec.{i}.self_attn.wk.bias",
+            "layers.{i}.self_attn.v_proj.bias": "dec.{i}.self_attn.wv.bias",
+            "layers.{i}.self_attn.o_proj.bias": "dec.{i}.self_attn.wo.bias",
+            "norm.bias": "dec.output_norm.bias",
+            "norm.weight": "dec.output_norm.weight"
+        }
+    }
+}
