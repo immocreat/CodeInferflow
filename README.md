@@ -49,15 +49,15 @@ Download from [release](https://github.com/immocreat/CodeInferflow/releases).
 
 #### Step2: Download models
 
-Select a model in `data/models/code` or `data/models/chat`. Run `download.sh` or `download.win.cmd` to download the model files.
+Select a model in `data/models/code` or `data/models/chat`, such as "starcoder2-3b". Run `download.sh` or `download.win.cmd` to download the model files.
 
 #### Step3: Edit the configuration file
 
-Edit `inferflow_service.ini` in `bin` directory. Uncomment the model you want to use.
+Edit `inferflow_service.ini` in `bin` directory. Uncomment the model you want to use. By default, the model "starcoder2-3b" is already enabled.
 
 #### Step4: Start inferflow_service
 
-Under `bin` directory, run `release/inferflow_service` or `release/inferflow_service.exe` to start the service. Or specify the configuration file path like `inferflow_service <configuration_file_path>`.
+In `bin/release` directory, run `inferflow_service` or `inferflow_service.exe` to start the service. Or specify the configuration file path like `inferflow_service <configuration_file_path>`.
 
 ### Code Completion in IDE
 
@@ -80,7 +80,7 @@ Install the [Llama Coder](https://marketplace.visualstudio.com/items?itemName=ex
 
 #### Linux
 
-If you want to build the CUDA version, then CUDA, cmake, ninja should be properly installed. Gcc, g++ should be compatible with the CUDA version. CUDA version should be compatible with the driver version. Recommend to use [nvidia pytorch docker image](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html) to simplify the preparing process. (Pytorch is not needed in the build process).
+If you want to build the CUDA version, then CUDA, cmake, ninja should be properly installed. Gcc, g++ should be compatible with the CUDA version. CUDA version should be compatible with the GPU driver version. Recommend to use [nvidia pytorch docker image](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html) to simplify the preparing process. (Pytorch is not needed in the build process).
 
 ```bash
 cmake -B build -DUSE_CUDA=1 -DCMAKE_BUILD_TYPE=Release
