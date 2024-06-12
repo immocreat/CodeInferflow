@@ -40,8 +40,8 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: CodeInferflow-linux-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}
-          path: CodeInferflow-linux-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}
+          name: CodeInferflow-linux-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}.tar.gz
+          path: CodeInferflow-linux-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}.tar.gz
   
   build_windows:
     runs-on: windows-2022
