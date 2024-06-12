@@ -13,7 +13,7 @@ jobs:
         uses: Jimver/cuda-toolkit@v0.2.15
         id: cuda-toolkit
         with:
-          cuda: '12.4.1'
+          cuda: '12.2.2'
           method: network
     
       - name: Verify CUDA
@@ -35,13 +35,13 @@ jobs:
         run: cmake --build build --target install -j 8
 
       - name: tar target
-        run: tar -czf CodeInferflow-linux-x64.tar.gz bin/ data/ README.md docs/
+        run: tar -czf CodeInferflow-linux-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}.tar.gz bin/ data/ README.md docs/
 
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: CodeInferflow-linux-x64.tar.gz
-          path: CodeInferflow-linux-x64.tar.gz
+          name: CodeInferflow-linux-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}
+          path: CodeInferflow-linux-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}
   
   build_windows:
     runs-on: windows-2022
@@ -50,7 +50,7 @@ jobs:
         uses: Jimver/cuda-toolkit@v0.2.15
         id: cuda-toolkit
         with:
-          cuda: '12.4.1'
+          cuda: '12.2.2'
           method: network
 
       - name: Verify CUDA
@@ -72,13 +72,13 @@ jobs:
         run: cmake --build build --target install --config release
 
       - name: zip target
-        run: 7z a CodeInferflow-win-x64.zip bin/ data/ README.md docs/
+        run: 7z a CodeInferflow-win-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}.zip bin/ data/ README.md docs/
 
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: CodeInferflow-win-x64.zip
-          path: CodeInferflow-win-x64.zip
+          name: CodeInferflow-win-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}.zip
+          path: CodeInferflow-win-x64-CUDA-${{steps.cuda-toolkit.outputs.cuda}}.zip
 
   release:
     if: startsWith(github.ref, 'refs/tags/')

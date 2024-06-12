@@ -41,7 +41,11 @@ Extending features:
 ## Getting Started
 ### Starting inferflow_service via Pre-build Binaries
 
+Please make sure your CUDA version >= 12.2. If you want to use the CPU version, please build the project mannually.
+
 #### Step1: Download pre-build binaries
+
+Download from [release](https://github.com/immocreat/CodeInferflow/releases).
 
 #### Step2: Download models
 
