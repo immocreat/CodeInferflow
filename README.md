@@ -1,5 +1,13 @@
 # CodeInferflow
 
+<h4>
+
+<img src="https://img.shields.io/badge/PRs-welcome-brightgreen">
+<img src="https://img.shields.io/github/v/release/immocreat/codeinferflow" alt="Release">
+<img src="https://img.shields.io/github/issues/immocreat/codeinferflow?color=red" alt="Issues">
+
+</h4>
+
 CodeInferflow is a efficient inference engine based on [Inferflow](https://github.com/inferflow/inferflow) for code large language models (Code LLMs). With CodeInferflow, you can locally deploy popular code LLMs and efficiently use code completion in VSCode. 
 
 ## Features
@@ -8,8 +16,10 @@ Support code_llama2, codegeex2, deepseek_coder, starcoder2 and so on. Other mode
 
 2. **Plugin Support in IDEs**
 You can use [Llama Coder extension](https://marketplace.visualstudio.com/items?itemName=ex3ndr.llama-coder) in VSCode for code completion.
-
-![](docs/assets/vscode-demo.gif)
+<center>
+<img style="width:60%;" src="docs/assets/vscode-demo.gif" />
+</center>
+<!-- ![](docs/assets/vscode-demo.gif) -->
 
 3. **Efficient Code Inference**
 With dynamic batching, the inference thoughtput and request response time is optimized when concurrent requests are made.
