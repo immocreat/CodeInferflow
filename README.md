@@ -16,9 +16,11 @@ CodeInferflow is highly efficient when concurrently serving multiple requests, a
 
 ## Features
 1. **Popular Code LLMs Support**
+
 Support code_llama2, codegeex2, deepseek_coder, starcoder2 and so on. Other models can be supported by editing a model specification file.
 
 2. **API for Plugin in IDEs**
+
 You can use [Llama Coder extension](https://marketplace.visualstudio.com/items?itemName=ex3ndr.llama-coder) in VSCode for code completion.
 <h4>
 <center>
@@ -28,6 +30,7 @@ You can use [Llama Coder extension](https://marketplace.visualstudio.com/items?i
 <!-- ![](docs/assets/vscode-demo.gif) -->
 
 3. **Efficient Code Inference**
+
 With dynamic batching, the inference thoughtput and request response time is optimized when concurrent requests are made.
 
 ![](docs/assets/performance.jpeg)

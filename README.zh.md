@@ -13,9 +13,11 @@ CodeInferflow 在同时处理多个请求时具备高效率，支持各种数据
 ## 特性
 
 1. **流行的代码大型语言模型支持**
+
 支持 code_llama2, codegeex2, deepseek_coder, starcoder2 等。其他模型可以通过编辑模型规范文件来支持。
 
 2. **IDE 插件 API**
+
 您可以在 VSCode 中使用 [Llama Coder 扩展](https://marketplace.visualstudio.com/items?itemName=ex3ndr.llama-coder) 进行代码补全。
 
 <h4>
@@ -25,6 +27,7 @@ CodeInferflow 在同时处理多个请求时具备高效率，支持各种数据
 </h4>
 
 3. **高效的代码推理**
+
 通过动态批处理，当并发请求时，推理吞吐量和请求响应时间得到优化。
 
 ![](docs/assets/performance.jpeg)
