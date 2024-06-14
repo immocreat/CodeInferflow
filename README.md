@@ -8,17 +8,23 @@
 
 </h4>
 
-CodeInferflow is a efficient inference engine based on [Inferflow](https://github.com/inferflow/inferflow) for code large language models (Code LLMs). With CodeInferflow, you can locally deploy popular code LLMs and efficiently use code completion in VSCode. 
+[中文](./README.zh.md)
+
+CodeInferflow is an efficient inference engine, built upon [Inferflow](https://github.com/inferflow/inferflow), specifically designed for large code language models (Code LLMs). It enables efficient, local deployment of popular Code LLMs, providing APIs for code completion.
+
+CodeInferflow is highly efficient when concurrently serving multiple requests, and supports various data types, model file formats, and network types. CodeInferflow is highly configurable and extensible, supporting a wide range of Code LLMs and enabling users to customize their models.
 
 ## Features
 1. **Popular Code LLMs Support**
 Support code_llama2, codegeex2, deepseek_coder, starcoder2 and so on. Other models can be supported by editing a model specification file.
 
-2. **Plugin Support in IDEs**
+2. **API for Plugin in IDEs**
 You can use [Llama Coder extension](https://marketplace.visualstudio.com/items?itemName=ex3ndr.llama-coder) in VSCode for code completion.
+<h4>
 <center>
 <img style="width:60%;" src="docs/assets/vscode-demo.gif" />
 </center>
+</h4>
 <!-- ![](docs/assets/vscode-demo.gif) -->
 
 3. **Efficient Code Inference**
@@ -90,7 +96,15 @@ Install the [Llama Coder](https://marketplace.visualstudio.com/items?itemName=ex
 
 #### Linux
 
-If you want to build the CUDA version, then CUDA, cmake, ninja should be properly installed. Gcc, g++ should be compatible with the CUDA version. CUDA version should be compatible with the GPU driver version. Recommend to use [nvidia pytorch docker image](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html) to simplify the preparing process. (Pytorch is not needed in the build process).
+To build the CUDA version, ensure that CUDA, CMake, and Ninja are installed correctly. Compatibility is crucial: your GCC and G++ versions should match the CUDA version, and the CUDA version must align with the GPU driver version. It's advisable to utilize the [NVIDIA PyTorch Docker image](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html) to streamline the setup process.
+
+We build the project with following versions:
+- docker image: nvcr.io/nvidia/pytorch:24.03-py3
+- CUDA: 12.4
+- GCC: 11.4
+- G++: 11.4
+- ninja 1.11.1
+- cmake 3.28.3
 
 ```bash
 cmake -B build -DUSE_CUDA=1 -DCMAKE_BUILD_TYPE=Release
@@ -103,10 +117,21 @@ If you want to build the cpu version, set the USE_CUDA flag to 0. However, since
 
 For windows platform, the visual studio, CUDA and cmake should be installed properly. The build process is similar to the linux build process.
 
+We build the project with following versions:
+- Visual Studio: 2022
+- CUDA: 12.4
+- cmake 3.28.3
+
 ``` cmd
 cmake -B build -DUSE_CUDA=1 -DCMAKE_BUILD_TYPE=Release
 cmake --build build --target install --config release
 ```
+
+## Model Serving Configuration
+
+CodeInferflow offers high configurability, enabling users to customize settings such as the model, device, data type, and completion template within a single configuration file. To edit the configuration file, see [Model Serving Configuration](./docs/model_serving_config.md).
+
+Additionally, users have the flexibility to configure new or custom models by modifying the model specification file. For detailed instructions, refer to [Model Setup Guide](./docs/model_setup.md).
 
 ## REST API Usage
 
